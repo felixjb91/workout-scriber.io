@@ -10,31 +10,46 @@ title: "Voice Training Tracker"
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ page.title }}</title>
   <style>
+    /* Palette de couleurs */
+    :root {
+      --dark-bg: #121212;
+      --dark-gray: #1e1e1e;
+      --warm-accent: #ff6f61;
+      --light-text: #e0e0e0;
+      --medium-gray: #333;
+      --border-gray: #444;
+    }
+
     /* Styles de base */
     body {
       margin: 0;
       padding: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      color: #333;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--dark-bg);
+      color: var(--light-text);
     }
+    
     header {
-      background: #2c3e50;
-      color: #fff;
+      background: var(--dark-gray);
       text-align: center;
       padding: 2rem 1rem;
     }
+    
     header h1 {
       margin: 0.5rem 0;
       font-size: 2.5rem;
+      color: var(--warm-accent);
     }
+    
     header p {
       font-size: 1.2rem;
       margin: 0.5rem 0;
     }
+    
     section {
       padding: 2rem 1rem;
     }
+    
     .features {
       display: flex;
       flex-wrap: wrap;
@@ -42,71 +57,84 @@ title: "Voice Training Tracker"
       gap: 2rem;
       margin-bottom: 2rem;
     }
+    
     .feature {
-      background: #fff;
-      border: 1px solid #ddd;
+      background: var(--dark-gray);
+      border: 1px solid var(--border-gray);
       padding: 1.5rem;
       border-radius: 4px;
       max-width: 320px;
       text-align: center;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     }
+    
     .slogan {
       font-size: 1.5rem;
       font-weight: bold;
       margin-bottom: 1rem;
-      color: #e74c3c;
+      color: var(--warm-accent);
     }
+    
     .cta {
       text-align: center;
       margin-top: 2rem;
     }
+    
     .cta a {
-      background: #e74c3c;
-      color: #fff;
+      background: var(--warm-accent);
+      color: var(--light-text);
       padding: 1rem 2rem;
       text-decoration: none;
       border-radius: 4px;
       font-size: 1.2rem;
     }
+    
     /* Section d'inscription */
     #signup {
-      background: #fff;
+      background: var(--dark-gray);
       max-width: 500px;
       margin: 2rem auto;
       padding: 2rem;
       border-radius: 4px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     }
+    
     #signup h2 {
       text-align: center;
       margin-bottom: 1.5rem;
+      color: var(--warm-accent);
     }
+    
     #signup form {
       display: flex;
       flex-direction: column;
       gap: 1rem;
     }
+    
     #signup input[type="email"] {
       padding: 0.8rem;
       font-size: 1rem;
-      border: 1px solid #ccc;
+      border: 1px solid var(--border-gray);
       border-radius: 4px;
+      background: var(--medium-gray);
+      color: var(--light-text);
     }
+    
     #signup button {
       padding: 0.8rem;
       font-size: 1rem;
-      color: #fff;
-      background: #e74c3c;
+      color: var(--light-text);
+      background: var(--warm-accent);
       border: none;
       border-radius: 4px;
       cursor: pointer;
     }
+    
     footer {
       text-align: center;
       padding: 1rem;
-      background: #2c3e50;
-      color: #fff;
+      background: var(--dark-gray);
+      color: var(--light-text);
     }
   </style>
 </head>
