@@ -14,7 +14,7 @@ title: "Workout Scriber"
     :root {
       --dark-bg: #121212;
       --dark-gray: #1e1e1e;
-      --warm-accent: #5176cc;
+      --warm-accent: #5182cc;
       --light-text: #e0e0e0;
       --medium-gray: #333;
       --border-gray: #444;
@@ -28,6 +28,12 @@ title: "Workout Scriber"
       background: var(--dark-bg);
       color: var(--light-text);
       scroll-behavior: smooth;
+    }
+
+    .logo {
+      width: 150px;
+      height: auto;
+      margin-bottom: 1rem;
     }
     
     header {
@@ -139,7 +145,8 @@ title: "Workout Scriber"
 </head>
 <body>
   <header>
-    <h1>{{ page.title }}</h1>
+    <img src="logoComplexe.webp" alt="Workout Scriber Logo" class="logo">
+    <h1>Workout Scriber</h1>
     <p>Enregistrez instantanément vos séances – parlez, et on s'occupe du reste !</p>
   </header>
 
@@ -163,14 +170,32 @@ title: "Workout Scriber"
   <!-- Section Formulaire -->
   <section id="signup">
     <h2>Inscrivez-vous pour rejoindre la bêta</h2>
-    <form action="https://example.com/subscribe" method="post">
-      <input type="email" name="email" placeholder="Votre email" required>
+    <form id="signupForm" onsubmit="redirectToGoogleForm(event)">
+      <input type="email" id="emailInput" name="email" placeholder="Votre email" required>
       <button type="submit">Valider mon inscription</button>
     </form>
   </section>
-
   <footer>
     <p>&copy; 2023 Voice Training Tracker. Tous droits réservés.</p>
   </footer>
+
+  <script>
+    function redirectToGoogleForm(event) {
+      event.preventDefault();
+      
+      // Remplacer avec l'URL réelle de ton Google Form
+      const googleFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSf_VOwUDfrgq24mqR_WSNXHsR9cdD0p54l60-F8LWmFFlJo4w/viewform";
+      
+      const emailEntryId = "entry.321638824";
+
+      const email = document.getElementById("emailInput").value;
+      
+      // Construction de l'URL avec le paramètre pour préremplir l'email
+      const redirectUrl = `${googleFormUrl}?${emailEntryId}=${encodeURIComponent(email)}`;
+
+      // Redirection vers Google Form avec l'email préchargé
+      window.location.href = redirectUrl;
+    }
+  </script>
 </body>
 </html>
