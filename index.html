@@ -14,7 +14,7 @@ title: "Voice Training Tracker"
     :root {
       --dark-bg: #121212;
       --dark-gray: #1e1e1e;
-      --warm-accent: #cc7351; /* Couleur plus douce et chaleureuse */
+      --warm-accent: #cc7351; /* Couleur chaude et douce */
       --light-text: #e0e0e0;
       --medium-gray: #333;
       --border-gray: #444;
@@ -27,6 +27,7 @@ title: "Voice Training Tracker"
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: var(--dark-bg);
       color: var(--light-text);
+      scroll-behavior: smooth;
     }
     
     header {
@@ -46,28 +47,8 @@ title: "Voice Training Tracker"
       margin: 0.5rem 0 1.5rem;
     }
     
-    /* Formulaire intégré dans le header */
-    header form {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      max-width: 500px;
-      margin: 0 auto;
-    }
-    
-    header input[type="email"] {
-      padding: 0.8rem;
-      font-size: 1rem;
-      border: 1px solid var(--border-gray);
-      border-radius: 4px;
-      background: var(--medium-gray);
-      color: var(--light-text);
-      flex: 1 0 auto;
-      min-width: 200px;
-    }
-    
-    header button {
+    .cta-button {
+      display: inline-block;
       padding: 0.8rem 1.5rem;
       font-size: 1rem;
       color: var(--light-text);
@@ -75,6 +56,7 @@ title: "Voice Training Tracker"
       border: none;
       border-radius: 4px;
       cursor: pointer;
+      text-decoration: none;
     }
     
     section {
@@ -106,6 +88,47 @@ title: "Voice Training Tracker"
       color: var(--warm-accent);
     }
     
+    /* Section formulaire */
+    #signup {
+      background: var(--dark-gray);
+      max-width: 500px;
+      margin: 2rem auto;
+      padding: 2rem;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    
+    #signup h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: var(--warm-accent);
+    }
+    
+    #signup form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    #signup input[type="email"] {
+      padding: 0.8rem;
+      font-size: 1rem;
+      border: 1px solid var(--border-gray);
+      border-radius: 4px;
+      background: var(--medium-gray);
+      color: var(--light-text);
+    }
+    
+    #signup button {
+      padding: 0.8rem;
+      font-size: 1rem;
+      color: var(--light-text);
+      background: var(--warm-accent);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
     footer {
       text-align: center;
       padding: 1rem;
@@ -118,11 +141,8 @@ title: "Voice Training Tracker"
   <header>
     <h1>Voice Training Tracker</h1>
     <p>Enregistrez instantanément vos séances – parlez, et on s'occupe du reste !</p>
-    <!-- Formulaire fusionné pour rejoindre la beta et laisser son email -->
-    <form action="https://example.com/subscribe" method="post">
-      <input type="email" name="email" placeholder="Votre email pour rejoindre la bêta" required>
-      <button type="submit">Rejoindre la bêta</button>
-    </form>
+    <!-- Bouton unique menant au formulaire d'inscription -->
+    <a href="#signup" class="cta-button">Rejoindre la bêta</a>
   </header>
 
   <section>
@@ -140,6 +160,15 @@ title: "Voice Training Tracker"
         <p>Concentrez-vous sur votre progression pendant que nous enregistrons et analysons vos efforts.</p>
       </div>
     </div>
+  </section>
+
+  <!-- Section Formulaire -->
+  <section id="signup">
+    <h2>Inscrivez-vous pour rejoindre la bêta</h2>
+    <form action="https://example.com/subscribe" method="post">
+      <input type="email" name="email" placeholder="Votre email" required>
+      <button type="submit">Valider mon inscription</button>
+    </form>
   </section>
 
   <footer>
