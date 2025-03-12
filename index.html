@@ -14,7 +14,7 @@ title: "Workout Scriber"
     :root {
       --dark-bg: #121212;
       --dark-gray: #1e1e1e;
-      --warm-accent: #5182cc;
+      --warm-accent: #5176cc;
       --light-text: #e0e0e0;
       --medium-gray: #333;
       --border-gray: #444;
@@ -74,7 +74,6 @@ title: "Workout Scriber"
       flex-wrap: wrap;
       justify-content: center;
       gap: 2rem;
-      margin-bottom: 2rem;
     }
     
     .feature {
@@ -90,8 +89,28 @@ title: "Workout Scriber"
     .slogan {
       font-size: 1.5rem;
       font-weight: bold;
-      margin-bottom: 1rem;
       color: var(--warm-accent);
+    }
+    
+    /* Section de présentation */
+    .presentation {
+      background: var(--dark-gray);
+      padding: 2rem;
+      margin: 2rem auto;
+      max-width: 800px;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      text-align: center;
+    }
+    
+    .presentation h2 {
+      color: var(--warm-accent);
+      margin-bottom: 1.5rem;
+    }
+    
+    .presentation p {
+      line-height: 1.6;
+      margin-bottom: 1rem;
     }
     
     /* Section formulaire */
@@ -148,6 +167,7 @@ title: "Workout Scriber"
     <img src="logoComplexe.webp" alt="Workout Scriber Logo" class="logo">
     <h1>Workout Scriber</h1>
     <p>Enregistrez instantanément vos séances – parlez, et on s'occupe du reste !</p>
+    <a href="#signup" class="cta-button">Rejoindre la bêta</a>
   </header>
 
   <section>
@@ -167,6 +187,14 @@ title: "Workout Scriber"
     </div>
   </section>
 
+  <!-- Nouvelle section de présentation -->
+  <section class="presentation">
+    <h2>Rejoignez la Révolution du Suivi d'Entraînement</h2>
+    <p>Découvrez une nouvelle façon de gérer vos performances sportives ! Fini les notes fastidieuses et les applications trop complexes : enregistrez vos entraînements en un seul geste grâce à notre interface ultra-simple. D'un simple tap sur le gros bouton "parole", dites vos répétitions, charges et exercices sans interrompre votre flow.</p>
+    <p>Que vous soyez un athlète assidu qui aime suivre chaque détail de sa progression ou quelqu'un qui souhaite débuter un suivi de ses performances avec facilité, notre solution s'adapte à vos besoins. Accédez immédiatement à des statistiques claires et motivantes pour booster votre entraînement et suivre votre évolution jour après jour.</p>
+    <p>Intéressé(e) ? Faites-nous part de vos habitudes et attentes en quelques clics et contribuez à créer l'outil idéal pour tous les passionnés de sport !</p>
+  </section>
+
   <!-- Section Formulaire -->
   <section id="signup">
     <h2>Inscrivez-vous pour rejoindre la bêta</h2>
@@ -175,6 +203,7 @@ title: "Workout Scriber"
       <button type="submit">Valider mon inscription</button>
     </form>
   </section>
+
   <footer>
     <p>&copy; 2023 Voice Training Tracker. Tous droits réservés.</p>
   </footer>
