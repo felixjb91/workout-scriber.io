@@ -1,211 +1,756 @@
----
-layout: none
-title: "Workout Scriber"
----
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ page.title }}</title>
+  <title>SayReps - Suivez vos entraînements. Simplement. Vocalement.</title>
   <style>
-    /* Palette de couleurs */
+    /* Palette de couleurs moderne */
     :root {
+      --primary: #5176cc;
+      --primary-dark: #3e5da3;
       --dark-bg: #121212;
+      --dark-card: #1a1a1a;
       --dark-gray: #1e1e1e;
-      --warm-accent: #5176cc;
-      --light-text: #e0e0e0;
+      --light-text: #f5f5f5;
       --medium-gray: #333;
-      --border-gray: #444;
+      --border-gray: #2a2a2a;
+      --accent: #ff4757;
+      --success: #2ecc71;
     }
 
-    /* Styles de base */
-    body {
+    /* Reset et styles de base */
+    * {
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', sans-serif;
       background: var(--dark-bg);
       color: var(--light-text);
+      line-height: 1.6;
       scroll-behavior: smooth;
     }
 
-    .logo {
-      width: 150px;
-      height: auto;
-      margin-bottom: 1rem;
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
     }
-    
-    header {
-      background: var(--dark-gray);
-      text-align: center;
-      padding: 2rem 1rem;
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-    
-    header h1 {
-      margin: 0.5rem 0;
-      font-size: 2.5rem;
-      color: var(--warm-accent);
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
     }
-    
-    header p {
-      font-size: 1.2rem;
-      margin: 0.5rem 0 1.5rem;
-    }
-    
-    .cta-button {
-      display: inline-block;
-      padding: 0.8rem 1.5rem;
-      font-size: 1rem;
-      color: var(--light-text);
-      background: var(--warm-accent);
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      text-decoration: none;
-    }
-    
-    section {
-      padding: 2rem 1rem;
-    }
-    
-    .features {
+
+    /* Header et Navigation */
+    .navbar {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 2rem;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 0;
     }
-    
-    .feature {
-      background: var(--dark-gray);
-      border: 1px solid var(--border-gray);
-      padding: 1.5rem;
-      border-radius: 4px;
-      max-width: 320px;
-      text-align: center;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
     }
-    
-    .slogan {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: var(--warm-accent);
+
+    .logo {
+      width: 48px;
+      height: auto;
     }
-    
-    /* Section de présentation */
-    .presentation {
-      background: var(--dark-gray);
-      padding: 2rem;
-      margin: 2rem auto;
-      max-width: 800px;
-      border-radius: 4px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-      text-align: center;
+
+    .logo-text {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--light-text);
     }
-    
-    .presentation h2 {
-      color: var(--warm-accent);
-      margin-bottom: 1.5rem;
+
+    .nav-cta {
+      background: var(--primary);
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
     }
-    
-    .presentation p {
-      line-height: 1.6;
-      margin-bottom: 1rem;
+
+    .nav-cta:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
     }
-    
-    /* Section formulaire */
-    #signup {
-      background: var(--dark-gray);
-      max-width: 500px;
-      margin: 2rem auto;
-      padding: 2rem;
-      border-radius: 4px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    }
-    
-    #signup h2 {
-      text-align: center;
-      margin-bottom: 1.5rem;
-      color: var(--warm-accent);
-    }
-    
-    #signup form {
+
+    /* Hero Section */
+    .hero {
       display: flex;
       flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 4rem 0;
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .hero h1 span {
+      color: var(--primary);
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+      max-width: 700px;
+      margin-bottom: 2.5rem;
+      color: #b0b0b0;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .cta-button {
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .cta-primary {
+      background: var(--primary);
+      color: white;
+      border: none;
+    }
+
+    .cta-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    .mockup-container {
+      position: relative;
+      margin-top: 2rem;
+    }
+
+    .phone-mockup {
+      width: 100%;
+      max-width: 300px;
+      border-radius: 24px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Feature Mic Animation */
+    .feature-mic {
+      position: relative;
+      background: var(--dark-card);
+      border-radius: 50%;
+      width: 120px;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 2rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .mic-icon {
+      font-size: 2.5rem;
+      color: var(--primary);
+    }
+    
+    .mic-ripple {
+      position: absolute;
+      border: 2px solid var(--primary);
+      border-radius: 50%;
+      animation: ripple 2s linear infinite;
+      opacity: 0;
+    }
+    
+    .mic-ripple:nth-child(1) {
+      width: 100%;
+      height: 100%;
+      animation-delay: 0s;
+    }
+    
+    .mic-ripple:nth-child(2) {
+      width: 100%;
+      height: 100%;
+      animation-delay: 0.5s;
+    }
+    
+    @keyframes ripple {
+      0% {
+        transform: scale(0.8);
+        opacity: 0.8;
+      }
+      100% {
+        transform: scale(1.5);
+        opacity: 0;
+      }
+    }
+
+    /* Problem Section */
+    .problem {
+      padding: 5rem 0;
+      background: var(--dark-gray);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-header h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .section-header p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto;
+      color: #b0b0b0;
+    }
+
+    .problem-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .problem-card {
+      background: var(--dark-card);
+      border-radius: 12px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .problem-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .problem-icon {
+      font-size: 2.5rem;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .problem-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      color: var(--light-text);
+    }
+
+    /* Solution Section */
+    .solution {
+      padding: 5rem 0;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 4rem;
+    }
+
+    .feature-card {
+      background: var(--dark-card);
+      border-radius: 12px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      border: 1px solid var(--border-gray);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--primary);
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+    }
+
+    .feature-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      color: var(--light-text);
+    }
+
+    /* How It Works Section */
+    .how-it-works {
+      padding: 5rem 0;
+      background: var(--dark-gray);
+    }
+
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .step {
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+    }
+
+    .step-number {
+      background: var(--primary);
+      color: white;
+      font-size: 1.5rem;
+      font-weight: bold;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step-content h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--light-text);
+    }
+
+    .step-content p {
+      color: #b0b0b0;
+    }
+
+    /* Testimonial Section */
+    .testimonials {
+      padding: 5rem 0;
+    }
+
+    .testimonial-card {
+      background: var(--dark-card);
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 0 auto;
+      max-width: 700px;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .testimonial-text {
+      font-size: 1.3rem;
+      font-style: italic;
+      margin-bottom: 1.5rem;
+      color: var(--light-text);
+      line-height: 1.8;
+    }
+
+    .testimonial-author {
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    /* CTA Section */
+    .cta-section {
+      padding: 5rem 0;
+      text-align: center;
+      background: var(--dark-gray);
+    }
+
+    .cta-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .cta-content h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--light-text);
+    }
+
+    .cta-content p {
+      font-size: 1.2rem;
+      margin-bottom: 2.5rem;
+      color: #b0b0b0;
+    }
+
+    /* Signup Form */
+    .signup-form {
+      background: var(--dark-card);
+      padding: 3rem;
+      border-radius: 12px;
+      max-width: 500px;
+      margin: 0 auto;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      border: 1px solid var(--border-gray);
+    }
+
+    .signup-form h3 {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 1rem;
+      font-size: 1rem;
+      background: var(--medium-gray);
+      border: 1px solid var(--border-gray);
+      border-radius: 8px;
+      color: var(--light-text);
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(81, 118, 204, 0.2);
+    }
+
+    .signup-button {
+      width: 100%;
+      padding: 1rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .signup-button:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark-bg);
+      padding: 3rem 0;
+      text-align: center;
+    }
+
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       gap: 1rem;
     }
-    
-    #signup input[type="email"] {
-      padding: 0.8rem;
-      font-size: 1rem;
-      border: 1px solid var(--border-gray);
-      border-radius: 4px;
-      background: var(--medium-gray);
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-logo img {
+      width: 32px;
+      height: auto;
+    }
+
+    .footer-logo-text {
+      font-size: 1.4rem;
+      font-weight: 700;
       color: var(--light-text);
     }
-    
-    #signup button {
-      padding: 0.8rem;
-      font-size: 1rem;
-      color: var(--light-text);
-      background: var(--warm-accent);
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 1.5rem;
     }
-    
-    footer {
-      text-align: center;
-      padding: 1rem;
-      background: var(--dark-gray);
-      color: var(--light-text);
+
+    .footer-link {
+      color: #b0b0b0;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-link:hover {
+      color: var(--primary);
+    }
+
+    .copyright {
+      color: #777;
+      font-size: 0.9rem;
+    }
+
+    /* Media Queries */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      
+      .hero p {
+        font-size: 1.1rem;
+      }
+      
+      .hero-buttons {
+        flex-direction: column;
+      }
+      
+      .step {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .step-number {
+        margin: 0 auto;
+      }
+      
+      .signup-form {
+        padding: 2rem;
+      }
     }
   </style>
 </head>
 <body>
-  <header>
-    <img src="logoComplexe.webp" alt="Workout Scriber Logo" class="logo">
-    <h1>Workout Scriber</h1>
-    <p>Enregistrez instantanément vos séances – parlez, et on s'occupe du reste !</p>
-    <a href="#signup" class="cta-button">Rejoindre la bêta</a>
-  </header>
+  <!-- Navigation -->
+  <div class="container">
+    <nav class="navbar">
+      <div class="logo-container">
+        <span class="logo-text">SayReps</span>
+      </div>
+      <a href="#signup" class="nav-cta">Rejoindre la bêta</a>
+    </nav>
+  </div>
 
-  <section>
-    <div class="features">
-      <div class="feature">
-        <div class="slogan">Parlez, et laissez votre entraînement se compter !</div>
-        <p>Transformez chaque parole en données de performance facilement et sans effort.</p>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1>Suivez vos entraînements.<br><span>Simplement. Vocalement.</span></h1>
+      <p>SayReps est une application mobile conçue pour les pratiquants de musculation qui veulent garder une trace précise de leurs séances, sans interrompre leur flow ou manipuler leur smartphone entre deux séries.</p>
+      <div class="hero-buttons">
+        <a href="#signup" class="cta-button cta-primary">Rejoindre la bêta privée</a>
       </div>
-      <div class="feature">
-        <div class="slogan">Enregistrez instantanément vos séances – parlez, et on s'occupe du reste !</div>
-        <p>Fini la saisie chronophage, laissez notre IA analyser vos performances en temps réel.</p>
+      
+      <div class="feature-mic">
+        <div class="mic-ripple"></div>
+        <div class="mic-ripple"></div>
+        <span class="mic-icon">🎙️</span>
       </div>
-      <div class="feature">
-        <div class="slogan">Simplifiez votre suivi d'entraînement : un clic, une voix, des résultats !</div>
-        <p>Concentrez-vous sur votre progression pendant que nous enregistrons et analysons vos efforts.</p>
+      
+      <div class="mockup-container">
+        <img src="/api/placeholder/300/600" alt="SayReps App Mockup" class="phone-mockup">
       </div>
     </div>
   </section>
 
-  <!-- Nouvelle section de présentation -->
-  <section class="presentation">
-    <h2>Rejoignez la Révolution du Suivi d'Entraînement</h2>
-    <p>Découvrez une nouvelle façon de gérer vos performances sportives ! Fini les notes fastidieuses et les applications trop complexes : enregistrez vos entraînements en un seul geste grâce à notre interface ultra-simple. D'un simple tap sur le gros bouton "parole", dites vos répétitions, charges et exercices sans interrompre votre flow.</p>
-    <p>Que vous soyez un athlète assidu qui aime suivre chaque détail de sa progression ou quelqu'un qui souhaite débuter un suivi de ses performances avec facilité, notre solution s'adapte à vos besoins. Accédez immédiatement à des statistiques claires et motivantes pour booster votre entraînement et suivre votre évolution jour après jour.</p>
-    <p>Intéressé(e) ? Faites-nous part de vos habitudes et attentes en quelques clics et contribuez à créer l'outil idéal pour tous les passionnés de sport !</p>
+  <!-- Problem Section -->
+  <section class="problem">
+    <div class="container">
+      <div class="section-header">
+        <h2>Le problème</h2>
+        <p>Les applications d'entraînement actuelles ne sont pas adaptées au rythme d'une vraie séance</p>
+      </div>
+      
+      <div class="problem-cards">
+        <div class="problem-card">
+          <span class="problem-icon">⌨️</span>
+          <h3>Saisie manuelle fastidieuse</h3>
+          <p>Devoir saisir manuellement chaque exercice, charge et répétition interrompt votre entraînement</p>
+        </div>
+        
+        <div class="problem-card">
+          <span class="problem-icon">📱</span>
+          <h3>Interfaces complexes</h3>
+          <p>Des menus compliqués qui ralentissent votre progression et brisent votre concentration</p>
+        </div>
+        
+        <div class="problem-card">
+          <span class="problem-icon">📝</span>
+          <h3>Retour au carnet papier</h3>
+          <p>Les utilisateurs finissent par abandonner le suivi digital ou reviennent au carnet papier</p>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- Section Formulaire -->
-  <section id="signup">
-    <h2>Inscrivez-vous pour rejoindre la bêta</h2>
-    <form id="signupForm" onsubmit="redirectToGoogleForm(event)">
-      <input type="email" id="emailInput" name="email" placeholder="Votre email" required>
-      <button type="submit">Valider mon inscription</button>
-    </form>
+  <!-- Solution Section -->
+  <section class="solution">
+    <div class="container">
+      <div class="section-header">
+        <h2>La solution SayReps</h2>
+        <p>Enregistrez vocalement vos exercices en un seul tap. L'IA se charge du reste.</p>
+      </div>
+      
+      <div class="feature-grid">
+        <div class="feature-card">
+          <span class="feature-icon">🗣️</span>
+          <h3>Reconnaissance vocale intelligente</h3>
+          <p>Capte facilement "Développé couché, 80 kilos, 8 reps" et structure les données</p>
+        </div>
+        
+        <div class="feature-card">
+          <span class="feature-icon">🔍</span>
+          <h3>Analyse automatique</h3>
+          <p>Traitement instantané et structuration intelligente de vos données d'entraînement</p>
+        </div>
+        
+        <div class="feature-card">
+          <span class="feature-icon">📊</span>
+          <h3>Statistiques détaillées</h3>
+          <p>Historique et statistiques par exercice, groupe musculaire ou objectif</p>
+        </div>
+        
+        <div class="feature-card">
+          <span class="feature-icon">🚀</span>
+          <h3>Expérience minimaliste</h3>
+          <p>Interface fluide pensée pour s'adapter parfaitement à votre rythme d'entraînement</p>
+        </div>
+        
+        <div class="feature-card">
+          <span class="feature-icon">🔄</span>
+          <h3>Fonctionnement hors-ligne</h3>
+          <p>Utilisez l'app sans connexion, synchronisation automatique ensuite</p>
+        </div>
+        
+        <div class="feature-card">
+          <span class="feature-icon">🌓</span>
+          <h3>Thèmes et langues</h3>
+          <p>Thème clair/sombre et interface multilingue (FR/EN)</p>
+        </div>
+      </div>
+    </div>
   </section>
 
+  <!-- How It Works Section -->
+  <section class="how-it-works">
+    <div class="container">
+      <div class="section-header">
+        <h2>Comment ça marche ?</h2>
+        <p>Une expérience d'utilisation aussi simple qu'efficace</p>
+      </div>
+      
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Tapez pour activer</h3>
+            <p>Un simple tap sur le bouton d'enregistrement vocal pour commencer</p>
+          </div>
+        </div>
+        
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Parlez naturellement</h3>
+            <p>Dites simplement "Développé couché, 80 kilos, 8 répétitions"</p>
+          </div>
+        </div>
+        
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Automatiquement enregistré</h3>
+            <p>L'IA analyse et structure votre entrée vocale en données exploitables</p>
+          </div>
+        </div>
+        
+        <div class="step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>Suivez vos progrès</h3>
+            <p>Consultez vos statistiques et votre progression au fil du temps</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial Section -->
+  <section class="testimonials">
+    <div class="container">
+      <div class="section-header">
+        <h2>Ce que nos bêta-testeurs disent</h2>
+        <p>Des retours enthousiastes de nos premiers utilisateurs</p>
+      </div>
+      
+      <div class="testimonial-card">
+        <p class="testimonial-text">"Enfin une application qui comprend réellement les besoins des pratiquants de musculation! Avec SayReps, je n'ai plus à interrompre mon entraînement pour noter mes séries. Je parle, et tout est enregistré - simple, rapide et efficace."</p>
+        <p class="testimonial-author">Thomas, CrossFit Coach</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section" id="signup">
+    <div class="container">
+      <div class="cta-content">
+        <h2>Prêt à révolutionner votre façon de suivre vos entraînements ?</h2>
+        <p>Rejoignez notre beta privée et soyez parmi les premiers à découvrir SayReps. Places limitées!</p>
+      </div>
+      
+      <div class="signup-form">
+        <h3>Inscrivez-vous à la bêta</h3>
+        <form id="signupForm" onsubmit="redirectToGoogleForm(event)">
+          <div class="form-group">
+            <input type="email" id="emailInput" class="form-control" placeholder="Votre adresse email" required>
+          </div>
+          <button type="submit" class="signup-button">Réserver ma place</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
   <footer>
-    <p>&copy; 2023 Voice Training Tracker. Tous droits réservés.</p>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <span class="footer-logo-text">SayReps</span>
+        </div>
+        
+        <div class="footer-links">
+          <a href="#" class="footer-link">À propos</a>
+          <a href="#" class="footer-link">Confidentialité</a>
+          <a href="#" class="footer-link">Contact</a>
+        </div>
+        
+        <p class="copyright">&copy; 2023 SayReps. Tous droits réservés.</p>
+      </div>
+    </div>
   </footer>
 
   <script>
